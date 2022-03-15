@@ -26,8 +26,9 @@
             Config Management
           </a>
           <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="{% url 'config_management:get_config' %}">Get Config</a>
-            <a class="dropdown-item" href="{% url 'config_management:send_config' %}">Send Config</a>
+            <a class="dropdown-item" href="{% url 'config_management:config-get' %}">GET</a>
+            <a class="dropdown-item" href="{% url 'config_management:config-send' %}">SEND</a>
+            <a class="dropdown-item" href="{% url 'config_management:config-templates' %}">TEMPLATES</a>
           </div>
         </li>
       </ul>

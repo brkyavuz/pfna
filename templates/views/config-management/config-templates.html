@@ -1,0 +1,59 @@
+{% extends 'base.html' %} {% load static %} {% block title %}Config Management{% endblock title %} {% block head %}
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap4.min.css'%}">
+<link rel="stylesheet" href="{% static 'css/responsive.bootstrap4.min.css'%}"> {% endblock head %} {% block content %}
+<div class="row">
+    <div class="col-12">
+        <div class="margin mb-2">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#modal-add-template">
+                Add Template
+              </button>
+                <button type="button" class="btn btn-danger btn-sm">Remove Template</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card table table-responsive">
+            <div class="card-header bg-lightblue">
+                <h3 class="card-title">Inventory Table</h3>
+            </div>
+
+            <div class="card-body">
+                <table id="template-table" class="table table-bordered table-hover">
+                    <thead>
+                        <tr>
+                            <th>Template Name</th>
+                            <th>Description</th>
+                            <th>Created</th>
+                            <th>Modified</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for cell in data %}
+                        <tr>
+                            <td id="template-name">{{cell.template_name}}</td>
+                            <td>{{cell.description}}</td>
+                            <td>{{cell.created}}</td>
+                            <td>{{cell.updated}}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock content%} {% block script %}
+<script src="{% static 'js/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js'%}"></script>
+<script src="{% static 'js/dataTables.responsive.min.js'%}"></script>
+<script src="{% static 'js/responsive.bootstrap4.min.js'%}"></script>
+
+<script>
+    $(document).ready(function() {
+        $('#template-table').DataTable();
+    });
+</script>
+{% endblock script%}

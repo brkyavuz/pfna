@@ -1,0 +1,5 @@
+interface {{interface_name}}
+ip address {{ipaddr}} {{netmask}}
+{% if shutdown is True %}
+no shutdown
+{% endif %}

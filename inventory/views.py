@@ -17,7 +17,6 @@ def inventoryView(request):
 
     for host in nr.inventory.hosts:
         host_dict = nr.inventory.hosts[host].dict()
-        print(host_dict)
         device_data = [
             host_dict["name"],
             host_dict["hostname"],
