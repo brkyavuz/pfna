@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% block title %}Inventory{% endblock title %} 
+{% load static %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap4.min.css'%}">
+<link rel="stylesheet" href="{% static 'css/responsive.bootstrap4.min.css'%}">
+
+{% endblock head %} 
+{% block content %}
+
+<div class="row">
+    <div class="col-12">
+        <div class="margin mb-2">
+            <div class="btn-group">
+                <button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#modal-add-device">
+                  Add Device(s)
+                </button>
+                <button type="button" class="btn btn-danger btn-sm">Remove Device</button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <div class="card table table-responsive">
+            <div class="card-header bg-lightblue">
+                <h3 class="card-title">Inventory Table</h3>
+            </div>
+
+            <div class="card-body">
+                <table id="inventory-table" class="table table-bordered table-striped">
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% include 'modals/_inventory-modal.html'%} 
+{% endblock content %}
+{% block script %}
+<script src="{% static 'js/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'js/dataTables.bootstrap4.min.js'%}"></script>
+<script src="{% static 'js/dataTables.responsive.min.js'%}"></script>
+<script src="{% static 'js/responsive.bootstrap4.min.js'%}"></script>
+
+<script>
+	$(document).ready(function() {
+		$('#inventory-table').DataTable( {
+			data: {{data | safe}},
+			columns: [
+				{ title: "Name" },
+				{ title: "Mgmt Address" },
+				{ title: "Platform" },
+				{ title: "Groups" },
+				{ title: "Data" },
+				{ title: "Connection Options" }
+			]
+		} );
+	} );
+</script>
+
+{% endblock script %}

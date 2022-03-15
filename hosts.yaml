@@ -1,0 +1,36 @@
+R1:
+  data_id: null
+  groups_id: cisco_ios
+  hostname: 192.168.128.41
+  name: R1
+  password: cisco
+  platform: ios
+  port: 22
+  username: cisco
+R2:
+  data_id: null
+  groups_id: cisco_ios
+  hostname: 192.168.128.42
+  name: R2
+  password: cisco
+  platform: ios
+  port: 22
+  username: cisco
+R3:
+  data_id: null
+  groups_id: cisco_ios
+  hostname: 192.168.128.43
+  name: R3
+  password: cisco
+  platform: ios
+  port: 22
+  username: cisco
+R4:
+  data_id: null
+  groups_id: cisco_ios
+  hostname: 192.168.128.44
+  name: R4
+  password: cisco
+  platform: ios
+  port: 22
+  username: cisco
