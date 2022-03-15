@@ -18,10 +18,17 @@
             <a href="dashboard" class="nav-link {% if active_page == 'dashboard' %} active {% endif %}">Dashboard</a>
         </li>
         <li class="nav-item">
-          <a href="inventory" class="nav-link {% if active_page == 'inventory' %} active {% endif %}">Inventory</a>
+          <a href="{% url 'inventory:inventory' %}" class="nav-link {% if active_page == 'inventory' %} active {% endif %}">Inventory</a>
         </li>
-        <li class="nav-item">
-          <a href="config-management" class="nav-link {% if active_page == 'config-management' %} active {% endif %}">Config Management</a>
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle {% if active_page == 'config-management' %} active {% endif %}" 
+            href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="false" aria-expanded="false">
+            Config Management
+          </a>
+          <div class="dropdown-menu dropdown-menu-lg" aria-labelledby="navbarDropdown">
+            <a class="dropdown-item" href="{% url 'config_management:get_config' %}">Get Config</a>
+            <a class="dropdown-item" href="{% url 'config_management:send_config' %}">Send Config</a>
+          </div>
         </li>
       </ul>
     </div>
