@@ -2,8 +2,8 @@
 {% block title %}Inventory{% endblock title %} 
 {% load static %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap4.min.css'%}">
-<link rel="stylesheet" href="{% static 'css/responsive.bootstrap4.min.css'%}">
+<link rel="stylesheet" href="{% static 'datatables/dataTables.bootstrap4.min.css'%}">
+<link rel="stylesheet" href="{% static 'datatables/responsive.bootstrap4.min.css'%}">
 
 {% endblock head %} 
 {% block content %}
@@ -38,10 +38,10 @@
 {% include 'modals/_inventory-modal.html'%} 
 {% endblock content %}
 {% block script %}
-<script src="{% static 'js/jquery.dataTables.min.js'%}"></script>
-<script src="{% static 'js/dataTables.bootstrap4.min.js'%}"></script>
-<script src="{% static 'js/dataTables.responsive.min.js'%}"></script>
-<script src="{% static 'js/responsive.bootstrap4.min.js'%}"></script>
+<script src="{% static 'datatables/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'datatables/dataTables.bootstrap4.min.js'%}"></script>
+<script src="{% static 'datatables/dataTables.responsive.min.js'%}"></script>
+<script src="{% static 'datatables/responsive.bootstrap4.min.js'%}"></script>
 
 <script>
 	$(document).ready(function() {

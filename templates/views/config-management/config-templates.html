@@ -1,59 +1,122 @@
-{% extends 'base.html' %} {% load static %} {% block title %}Config Management{% endblock title %} {% block head %}
-<link rel="stylesheet" href="{% static 'css/dataTables.bootstrap4.min.css'%}">
-<link rel="stylesheet" href="{% static 'css/responsive.bootstrap4.min.css'%}"> {% endblock head %} {% block content %}
-<div class="row">
-    <div class="col-12">
-        <div class="margin mb-2">
-            <div class="btn-group">
-                <button type="button" class="btn btn-primary btn-sm mr-2" data-toggle="modal" data-target="#modal-add-template">
-                Add Template
-              </button>
-                <button type="button" class="btn btn-danger btn-sm">Remove Template</button>
-            </div>
-        </div>
-    </div>
-</div>
-<div class="row">
-    <div class="col-12">
-        <div class="card table table-responsive">
-            <div class="card-header bg-lightblue">
-                <h3 class="card-title">Inventory Table</h3>
-            </div>
+{% extends 'base.html' %} 
+{% load static %}
+{% block title %}Config Management{% endblock title %}
 
-            <div class="card-body">
-                <table id="template-table" class="table table-bordered table-hover">
-                    <thead>
-                        <tr>
-                            <th>Template Name</th>
-                            <th>Description</th>
-                            <th>Created</th>
-                            <th>Modified</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        {% for cell in data %}
-                        <tr>
-                            <td id="template-name">{{cell.template_name}}</td>
-                            <td>{{cell.description}}</td>
-                            <td>{{cell.created}}</td>
-                            <td>{{cell.updated}}</td>
-                        </tr>
-                        {% endfor %}
-                    </tbody>
-                </table>
-            </div>
-        </div>
-    </div>
+{% block head %}
+<!--Datatables CSS-->
+<link rel="stylesheet" href="{% static 'datatables/dataTables.bootstrap4.min.css'%}">
+<link rel="stylesheet" href="{% static 'datatables/responsive.bootstrap4.min.css'%}">
+<!--CodeMirror CSS-->
+<link rel="stylesheet" href="{% static 'codemirror/codemirror.css'%}">
+<link rel="stylesheet" href="{% static 'codemirror/theme/monokai.css'%}">
+{% endblock head %} 
+
+
+{% block content %}
+<div class="row">
+	<div class="col-12">
+		<button type="button" class="btn btn-primary btn-sm mb-2" data-toggle="modal" data-target="#modal-add-template">Add Template</button>
+	</div>
 </div>
-{% endblock content%} {% block script %}
-<script src="{% static 'js/jquery.dataTables.min.js'%}"></script>
-<script src="{% static 'js/dataTables.bootstrap4.min.js'%}"></script>
-<script src="{% static 'js/dataTables.responsive.min.js'%}"></script>
-<script src="{% static 'js/responsive.bootstrap4.min.js'%}"></script>
+<div class="row">
+	<div class="col-12">
+		<!--Card Header-->
+		<div class="card table table-responsive">
+			<div class="card-header bg-lightblue">
+				<h3 class="card-title">Inventory Table</h3>
+			</div>
+			<!--Card Body-->
+			<div class="card-body">
+				<table id="template-table" class="table table-bordered table-hover">
+					<thead>
+							<tr>
+									<th>Template Name</th>
+									<th>Description</th>
+									<th>Created</th>
+									<th>Modified</th>
+									<th>Action</th>
+							</tr>
+					</thead>
+						<tbody>
+								{% for cell in data %}
+								<tr>
+										<td>{{cell.template_name}}</td>
+										<td>{{cell.description}}</td>
+										<td>{{cell.created}}</td>
+										<td>{{cell.updated}}</td>
+										<td class="text-center">
+											<div class="btn-group ">
+												<button type="button" class="btn btn-primary template-info">
+													<i class="fas fa-info-circle"></i>
+												</button>
+												<button type="button" class="btn btn-warning">
+													<i class="fas fa-edit"></i>
+												</button>
+												<button type="button" class="btn btn-danger">
+													<i class="fas fa-trash"></i>
+												</button>
+											</div>
+										</td>
+								</tr>
+								{% endfor %}
+						</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+{% include 'modals/_template-get-modal.html' %}
+{% endblock content%}
+
+{% block script %}
+<!--DataTables JS-->
+<script src="{% static 'datatables/jquery.dataTables.min.js'%}"></script>
+<script src="{% static 'datatables/dataTables.bootstrap4.min.js'%}"></script>
+<script src="{% static 'datatables/dataTables.responsive.min.js'%}"></script>
+<script src="{% static 'datatables/responsive.bootstrap4.min.js'%}"></script>
+<!--CodeMirror JS-->
+<script src="{% static 'codemirror/codemirror.js'%}"></script>
+<script src="{% static 'codemirror/mode/jinja2/jinja2.js'%}"></script>
+<script src="{% static 'codemirror/display/autorefresh.js'%}"></script>
 
 <script>
     $(document).ready(function() {
         $('#template-table').DataTable();
     });
+</script>
+
+
+<script>
+	$(".template-info").click(function() {
+    var $row = $(this).closest("tr"),
+        $tds = $row.find("td:nth-child(1)");
+
+    $.each($tds, function() {
+      $.ajax({
+        type: "GET",
+        url: "config-templates/" + $(this).text(),
+        data: "",
+        success: function(result) {
+						$('.modal-content .modal-header h4').html("Template " +result.template_name+ " Detail");
+						$('.modal-content .modal-body').html(`
+						<textarea id="template-content" class="p-3">`+result.template_content+ `</textarea>`);
+						$(function () {
+							// CodeMirror
+							var editor = CodeMirror.fromTextArea(document.getElementById("template-content"), {
+								mode: "jinja2",
+								theme: "monokai",
+								readOnly: true,
+								autoRefresh:true,
+							});
+
+						})
+						$('#template-get-modal').modal('show');
+        },
+        error: function(result) {
+            alert('error');
+        }
+    	});
+    });   
+	});
 </script>
 {% endblock script%}

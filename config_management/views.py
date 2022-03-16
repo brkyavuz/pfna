@@ -1,3 +1,4 @@
+from django.http import JsonResponse
 from django.shortcuts import render
 from nornir import InitNornir
 from pathlib import Path
@@ -18,16 +19,15 @@ def sendconfigView(request):
     return render(request, 'views/config-management/config-send.html', context=context)
 
 
-def get_template_detail(request, template_name):
-    template_path =  f"{BASEDIR}/config-templates/{template_name}"
-    with open(template_path) as file:
-        context = {"active_page":"config-management", "data":file.read()}
-        return render(request, 'views/config-management/config-templates.html', context=context)
+def template_get(request, template_name):
+    qs = Template.objects.filter(template_name=template_name).values('template_name', 'template_content')
+    
+    return JsonResponse(qs[0])
 
 def templatesView(request):
     
-    templates = Template.objects.all().values()
+    qs = Template.objects.values('template_name', 'description', 'created', 'updated')
     
-    context = {"active_page":"config-management", "data":templates}
+    context = {"active_page":"config-management", "data":qs}
 
     return render(request, 'views/config-management/config-templates.html', context=context)

@@ -12,7 +12,8 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 
     <!--Font Awesome CSS-->
-    <link rel="stylesheet" href="{% static 'css/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/all.min.css' %}">
+    <link rel="stylesheet" href="{% static 'fontawesome/fontawesome.min.css' %}">
 
     <!-- AdminLTE CSS -->
     <link rel="stylesheet" href="{% static 'css/adminlte.min.css' %}">
@@ -24,7 +25,7 @@
 <body class="dark-mode hold-transition layout-top-nav layout-footer-fixed">
     <div class="wrapper">
         {% include 'partials/_navbar.html' %}
-        <div class="container mt-3">
+        <div class="container-fluid mt-3">
             {% include 'partials/_breadcrumb.html' %}
             {% block content %} {% endblock content %}
         </div>
@@ -36,6 +37,9 @@
     <!-- Bootstrap Bundle with Popper -->
     <script src="{% static 'js/jquery.min.js' %}"></script>
     <script src="{% static 'js/bootstrap.bundle.min.js' %}"></script>
+    <!-- Fontawesome JS ! -->
+    <script src="{% static 'fontawesome/all.min.js' %}"></script>
+    <script src="{% static 'fontawesome/fontawesome.min.js' %}"></script>
     <!-- AdminLTE JS ! -->
     <script src="{% static 'js/adminlte.min.js' %}"></script>
     </script>
